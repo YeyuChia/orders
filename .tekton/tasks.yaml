@@ -47,6 +47,9 @@ spec:
         export PYTHONPATH=$PWD:$PYTHONPATH  
         
         echo "***** Installing dependencies *****"
+
+        python -m pip install pylint
+        
         if [ -e "poetry.lock" ]; then
           echo "Found poetry.lock file: using poetry ..."
           python -m pip install --upgrade pip poetry
@@ -61,10 +64,12 @@ spec:
         fi
 
         # Make sure pylint is installed
-        python -m pip install pylint
+        # python -m pip install pylint
 
         echo "***** Running Linting *****"
-        pylint $@ "$(params.path)"
+        pylint --init-hook='import sys; sys.path.append(".")' $@ "$(params.path)"
+        #pylint $@ "$(params.path)"
+        
       args:
         - "$(params.args)"
 
