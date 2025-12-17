@@ -44,12 +44,12 @@ spec:
         set -e
         
         # 【 Fix 1: Force Path Switching to Ensure $PWD is Correct 】
-        cd $(workspaces.source.path)
+        #cd $(workspaces.source.path)
         
         export PATH=$PATH:$HOME/.local/bin:
         
         # 【 Fix 2: Exporting PYTHONPATH (Double Insurance) 】
-        export PYTHONPATH=$PWD:$PYTHONPATH
+        #export PYTHONPATH=$PWD:$PYTHONPATH
         
         # Print diagnostic information
         echo "--- DIAGNOSTIC INFO ---"
@@ -77,8 +77,8 @@ spec:
 
         echo "***** Running Linting *****"
         # 【 Fix 3: Forcing the Addition of Search Paths using python -m and --init-hook 】
-        python -m pylint --init-hook='import sys; sys.path.append(".")' $@ "$(params.path)"
-        #pylint $@ "$(params.path)"
+        #python -m pylint --init-hook='import sys; sys.path.append(".")' $@ "$(params.path)"
+        pylint $@ "$(params.path)"
         
       args:
         - "$(params.args)"
@@ -134,12 +134,12 @@ spec:
         set -e
 
         # 【 Fix 1: Force Path Switching to Ensure $PWD is Correct 】
-        cd $(workspaces.source.path)
+        #cd $(workspaces.source.path)
         
         export PATH=$PATH:$HOME/.local/bin:
 
         # 【 Fix 2: Exporting PYTHONPATH (Double Insurance) 】
-        export PYTHONPATH=$PWD:$PYTHONPATH
+        #export PYTHONPATH=$PWD:$PYTHONPATH
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
