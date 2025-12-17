@@ -52,10 +52,11 @@ spec:
         export PYTHONPATH=$PWD:$PYTHONPATH
         
         # Print diagnostic information
+        echo "--- DIAGNOSTIC INFO ---"
         echo "Current Working Directory (PWD): $PWD"
         echo "PYTHONPATH: $PYTHONPATH"
         echo "Checking for 'service' dir: $(ls -d service/ 2>/dev/null || echo 'Not Found')"
-        
+        echo "-----------------------"
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
@@ -131,7 +132,14 @@ spec:
       script: |
         #!/bin/bash
         set -e
+
+        # 【 Fix 1: Force Path Switching to Ensure $PWD is Correct 】
+        cd $(workspaces.source.path)
+        
         export PATH=$PATH:$HOME/.local/bin:
+
+        # 【 Fix 2: Exporting PYTHONPATH (Double Insurance) 】
+        export PYTHONPATH=$PWD:$PYTHONPATH
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
