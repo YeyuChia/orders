@@ -42,6 +42,10 @@ spec:
       script: |
         #!/bin/bash
         set -e
+        
+        #Force switch to the working directory (make sure $PWD is correct)
+        cd $(workspaces.source.path)  
+        
         export PATH=$PATH:$HOME/.local/bin:
 
         export PYTHONPATH=$PWD:$PYTHONPATH  
