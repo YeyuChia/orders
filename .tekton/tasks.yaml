@@ -42,18 +42,9 @@ spec:
       script: |
         #!/bin/bash
         set -e
-        
-        #Force switch to the working directory (make sure $PWD is correct)
-        cd $(workspaces.source.path)  
-        
         export PATH=$PATH:$HOME/.local/bin:
-
-        export PYTHONPATH=$PWD:$PYTHONPATH  
         
         echo "***** Installing dependencies *****"
-
-        python -m pip install pylint
-        
         if [ -e "poetry.lock" ]; then
           echo "Found poetry.lock file: using poetry ..."
           python -m pip install --upgrade pip poetry
@@ -68,11 +59,10 @@ spec:
         fi
 
         # Make sure pylint is installed
-        # python -m pip install pylint
+        python -m pip install pylint
 
         echo "***** Running Linting *****"
-        pylint --init-hook='import sys; sys.path.append(".")' $@ "$(params.path)"
-        #pylint $@ "$(params.path)"
+        pylint $@ "$(params.path)"
         
       args:
         - "$(params.args)"
@@ -127,8 +117,6 @@ spec:
         #!/bin/bash
         set -e
         export PATH=$PATH:$HOME/.local/bin:
-
-        export PYTHONPATH=$PWD:$PYTHONPATH
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
