@@ -42,7 +42,15 @@ spec:
       script: |
         #!/bin/bash
         set -e
+        
+        # 【 Fix 1: Force Path Switching to Ensure $PWD is Correct 】
+        cd $(workspaces.source.path)
+        
         export PATH=$PATH:$HOME/.local/bin:
+        
+        # 【 Fix 2: Exporting PYTHONPATH (Double Insurance) 】
+        export PYTHONPATH=$PWD:$PYTHONPATH
+        
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
@@ -62,7 +70,9 @@ spec:
         python -m pip install pylint
 
         echo "***** Running Linting *****"
-        pylint $@ "$(params.path)"
+        # 【 Fix 3: Forcing the Addition of Search Paths using python -m and --init-hook 】
+        python -m pylint --init-hook='import sys; sys.path.append(".")' $@ "$(params.path)"
+        #pylint $@ "$(params.path)"
         
       args:
         - "$(params.args)"
