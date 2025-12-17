@@ -44,6 +44,8 @@ spec:
         set -e
         export PATH=$PATH:$HOME/.local/bin:
 
+        export PYTHONPATH=$PWD:$PYTHONPATH  
+        
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
           echo "Found poetry.lock file: using poetry ..."
@@ -117,6 +119,8 @@ spec:
         set -e
         export PATH=$PATH:$HOME/.local/bin:
 
+        export PYTHONPATH=$PWD:$PYTHONPATH
+        
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
           echo "Found poetry.lock file: using poetry ..."
