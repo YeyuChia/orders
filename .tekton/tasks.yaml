@@ -51,6 +51,11 @@ spec:
         # 【 Fix 2: Exporting PYTHONPATH (Double Insurance) 】
         export PYTHONPATH=$PWD:$PYTHONPATH
         
+        # Print diagnostic information
+        echo "Current Working Directory (PWD): $PWD"
+        echo "PYTHONPATH: $PYTHONPATH"
+        echo "Checking for 'service' dir: $(ls -d service/ 2>/dev/null || echo 'Not Found')"
+        
         
         echo "***** Installing dependencies *****"
         if [ -e "poetry.lock" ]; then
