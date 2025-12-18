@@ -4,9 +4,6 @@ metadata:
   name: cd-pipeline
 spec:
   params:
-    - description: The URL for the behave tests
-      name: BASE_URL
-      type: string
     - description: The URL to the git repo
       name: GIT_REPO
       type: string
@@ -156,9 +153,6 @@ spec:
         - name: source
           workspace: pipeline-workspace
     - name: behave
-      params:
-        - name: base-url
-          value: $(params.BASE_URL)
       runAfter:
         - deploy-image
       taskRef:
